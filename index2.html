@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock Website</title>
+    <style>
+        body {
+            background-color: darkblue;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: darkblue;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 120px);
+        }
+
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 10px solid white;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .hour, .minute, .second {
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: white;
+            top: 50%;
+            transform-origin: 100%;
+            transform: translateY(-50%);
+            transition: transform 0.5s cubic-bezier(0.4, 2.1, 0.3, 1);
+        }
+
+        .minute {
+            height: 1.5px;
+        }
+
+        .second {
+            background-color: red; /* You can change the second hand color */
+            height: 1px;
+        }
+
+        .description {
+            background-color: white;
+            color: darkblue;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: darkblue;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Analog Clock</h1>
+    </header>
+
+    <div class="container">
+        <div class="clock">
+            <div class="hour" id="hour"></div>
+            <div class="minute" id="minute"></div>
+            <div class="second" id="second"></div>
+        </div>
+
+        <div class="description">
+            <h2>About Analog Clock</h2>
+            <p>An analog clock is a timekeeping device with three hands that move to indicate the current time. The hour hand, minute hand, and second hand rotate around the clock face. This simple web application displays the current time using an analog clock design.</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2023 Analog Clock Website
+    </footer>
+
+    <script>
+        function updateClock() {
+            const hourElement = document.getElementById("hour");
+            const minuteElement = document.getElementById("minute");
+            const secondElement = document.getElementById("second");
+
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (360 / 12) * hours + (360 / 12) * (minutes / 60);
+            const minuteDeg = (360 / 60) * minutes + (360 / 60) * (seconds / 60);
+            const secondDeg = (360 / 60) * seconds;
+
+            hourElement.style.transform = `rotate(${hourDeg}deg)`;
+            minuteElement.style.transform = `rotate(${minuteDeg}deg)`;
+            secondElement.style.transform = `rotate(${secondDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
